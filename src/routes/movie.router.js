@@ -1,4 +1,4 @@
-const { getAll, create, getOne, remove, update, setMovieGenres, setMovieActors, setMovieDirectors } = require('../controllers//movie.controller');
+const { getAll, create, getOne, remove, update, setMovieGenres, setMovieActors, setMovieDirectors } = require('../controllers/movie.controller');
 const express = require('express');
 
 const movieRouter = express.Router();

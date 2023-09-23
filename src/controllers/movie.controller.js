@@ -5,7 +5,7 @@ const Actor = require('../models/Actor');
 const Director = require('../models/Director');
 
 const getAll = catchError(async(req, res) => {
-    const movies = await Movie.findAll({include: Genre, Actor, Director});
+    const movies = await Movie.findAll({include: [Genre, Actor, Director]});
     return res.json(movies);
 });
 
@@ -40,6 +40,7 @@ const update = catchError(async(req, res) => {
 const setMovieGenres = catchError(async(req, res) => {
     const { id } = req.params;
     const movie = await Movie.findByPk(id);
+    if(!movie) return res.status(404).json({message: "Género no encontrado"})
     await movie.setGenres(req.body);
     const genres = await movie.getGenres();
     return res.json(genres);
@@ -48,6 +49,7 @@ const setMovieGenres = catchError(async(req, res) => {
 const setMovieActors = catchError(async(req, res) => {
     const { id } = req.params;
     const movie = await Movie.findByPk(id);
+    if(!movie) return res.status(404).json({message: "Actor no encontrado"})
     await movie.setActors(req.body);
     const actors = await movie.getActors();
     return res.json(actors);
@@ -56,6 +58,7 @@ const setMovieActors = catchError(async(req, res) => {
 const setMovieDirectors = catchError(async(req, res) => {
     const { id } = req.params;
     const movie = await Movie.findByPk(id);
+    if(!movie) return res.status(404).json({message: "Director no encontrado"})
     await movie.setDirectors(req.body);
     const directors = await movie.getDirectors();
     return res.json(directors);
